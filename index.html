@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed El-Masry</title>
+    <link rel="icon" type="image/png" href="coding.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        .content-wrapper {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover, nav a.active {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .tip-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tip-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'Code';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+
+        .category-filter {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .filter-btn {
+            background: #ecf0f1;
+            border: none;
+            padding: 8px 20px;
+            margin: 0 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            main {
+                padding: 20px;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mohamed El-Masry</h1>
+            <p>Blogging about technical useful Projects, tips and tricks</p>
+        </header>
+
+        <div class="content-wrapper">
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showSection('home')" class="nav-link active">Home</a></li>
+                    <li><a href="#" onclick="showSection('tips')" class="nav-link">Tips & Tricks</a></li>
+                    <li><a href="#" onclick="showSection('skills')" class="nav-link">Skills</a></li>
+                    <li><a href="#" onclick="showSection('projects')" class="nav-link">Projects</a></li>
+                    <li><a href="#" onclick="showSection('contact')" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <!-- Home Section -->
+                <section id="home" class="section active">
+                    <h2>Welcome to My Technical Blog</h2>
+                    <p style="font-size: 1.2rem; margin: 20px 0; color: #666;">
+                        <strong>Hi, I'm Mohamed El-masry!</strong>
+                        Hands-on IT Leader and Problem Solver with 13+ years of experience managing teams, projects, and complex systems (Azure, Hyper-V, SQL). Expert at developing practical solutions, fueled by a passion for mechanical repair, carpentry, and turning innovative ideas into reality. Driven to build ventures that create value and opportunity.
+                        Currently pursuing my Master's in Computer Science while sharing practical coding tips, development tricks, and technical insights that boost productivity and solve real-world problems.
+                    </p>
+                    
+                    <div class="tips-grid" style="margin-top: 40px;">
+                        <div class="tip-card">
+                            <h3>🚀 Latest Tips</h3>
+                            <p>Stay updated with the newest development techniques, performance optimizations, and coding best practices.</p>
+                        </div>
+                        <div class="tip-card">
+                            <h3>💡 Problem Solving</h3>
+                            <p>My core philosophy, both in IT and in the workshop, is a relentless focus on practical solutions. I thrive on deconstructing problems, analyzing their root causes, and developing effective workarounds.or figuring out why a motorcycle won't start, the process is the same: logic, patience, and a deep understanding of how systems work. I believe there's always a path to a solution; you just have to be determined and creative enough to find it.</p>
+                        </div>
+                        <div class="tip-card">
+                            <h3>🛠️ Tools & Workflows</h3>
+                            <p>Discover productivity tools, development workflows, and automation techniques that save time.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tips Section -->
+                <section id="tips" class="section">
+                    <h2>Tips & Tricks</h2>
+                    
+                    <div class="category-filter">
+                        <button class="filter-btn active" onclick="filterTips('all')">All</button>
+                        <button class="filter-btn" onclick="filterTips('javascript')">JavaScript</button>
+                        <button class="filter-btn" onclick="filterTips('python')">Python</button>
+                        <button class="filter-btn" onclick="filterTips('powershell')">PowerShell</button>
+                        <button class="filter-btn" onclick="filterTips('sql')">SQL</button>
+                        <button class="filter-btn" onclick="filterTips('git')">Git</button>
+                        <button class="filter-btn" onclick="filterTips('productivity')">Productivity</button>
+                    </div>
+
+                    <div class="tips-grid">
+                        <div class="tip-card" data-category="javascript">
+                            <h3>Quick Array Deduplication</h3>
+                            <p>Remove duplicates from arrays in JavaScript with this one-liner:</p>
+                            <div class="code-block">const unique = [...new Set(array)];</div>
+                            <p>This uses the Set object which only stores unique values, then spreads it back into an array.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="git">
+                            <h3>Git Stash with Message</h3>
+                            <p>Save your work in progress with a descriptive message:</p>
+                            <div class="code-block">git stash push -m "work in progress on feature X"</div>
+                            <p>Makes it easier to identify what you stashed when you have multiple stashes.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="python">
+                            <h3>Python List Comprehension Power</h3>
+                            <p>Filter and transform data in one line:</p>
+                            <div class="code-block">squares = [x**2 for x in range(10) if x % 2 == 0]</div>
+                            <p>Gets squares of even numbers from 0-9. More readable and faster than loops.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="productivity">
+                            <h3>VS Code Multi-Cursor Magic</h3>
+                            <p>Edit multiple lines simultaneously:</p>
+                            <div class="code-block">Ctrl+Alt+Arrow Keys (Windows/Linux)
+Cmd+Option+Arrow Keys (Mac)</div>
+                            <p>Perfect for refactoring variable names or making similar edits across multiple lines.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="javascript">
+                            <h3>Optional Chaining Operator</h3>
+                            <p>Safely access nested object properties:</p>
+                            <div class="code-block">const city = user?.address?.city ?? 'Unknown';</div>
+                            <p>No more "Cannot read property of undefined" errors when accessing deep object properties.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="git">
+                            <h3>Interactive Rebase</h3>
+                            <p>Clean up your commit history before pushing:</p>
+                            <div class="code-block">git rebase -i HEAD~3</div>
+                            <p>Lets you squash, reorder, or edit your last 3 commits for a cleaner project history.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="powershell">
+                            <h3>PowerShell Object Pipeline</h3>
+                            <p>Filter and sort processes by memory usage:</p>
+                            <div class="code-block">Get-Process | Where-Object {$_.WorkingSet -gt 100MB} | Sort-Object WorkingSet -Descending</div>
+                            <p>PowerShell's object-based pipeline makes data manipulation incredibly powerful and readable.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="sql">
+                            <h3>SQL Window Functions</h3>
+                            <p>Rank records within groups without subqueries:</p>
+                            <div class="code-block">SELECT name, salary, 
+       RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank
+FROM employees;</div>
+                            <p>Window functions provide powerful analytical capabilities for complex queries.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="powershell">
+                            <h3>PowerShell Splatting</h3>
+                            <p>Pass multiple parameters cleanly using hashtables:</p>
+                            <div class="code-block">$params = @{
+    Path = "C:\temp"
+    Recurse = $true
+    Filter = "*.log"
+}
+Get-ChildItem @params</div>
+                            <p>Makes commands with many parameters more readable and maintainable.</p>
+                        </div>
+
+                        <div class="tip-card" data-category="sql">
+                            <h3>SQL Common Table Expressions</h3>
+                            <p>Create readable recursive or complex queries:</p>
+                            <div class="code-block">WITH RECURSIVE factorial(n, result) AS (
+    SELECT 1, 1
+    UNION ALL
+    SELECT n+1, result*(n+1) FROM factorial WHERE n < 5
+)
+SELECT * FROM factorial;</div>
+                            <p>CTEs make complex queries more readable and enable recursive operations.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Skills Section -->
+                <section id="skills" class="section">
+                    <h2>My Skills & Expertise</h2>
+                    <p style="margin-bottom: 30px; color: #666;">Currently pursuing my Master's in Computer Science while building expertise across various technologies:</p>
+                    
+                    <div style="margin-bottom: 40px;">
+                        <h3 style="color: #2c3e50; margin-bottom: 20px;">🎓 Academic Focus</h3>
+                        <div class="tip-card">
+                           <h3>Master of Science in Computer Science</h3>
+                           <p>Cairo University, Egypt
+                            <img src="cairo_univ.png" alt="Cairo University Logo" style="width: 30px; height: 30px; vertical-align: middle;">
+                            </p>
+                           <p><strong>Current Status:</strong> In Progress</p>
+
+                           <h3>Postgraduate Diploma in Computer Science</h3>
+                           <p>Cairo University, Egypt
+                            <img src="cairo_univ.png" alt="Cairo University Logo" style="width: 30px; height: 30px; vertical-align: middle;">
+                            </p>
+                           <p><strong>Graduated:</strong> 2023</p>
+
+                           <h3>Bachelor of Science in Management Information Systems (MIS)</h3>
+                           <p><strong>Graduated:</strong> 2009</p>
+                           
+                        </div>
+                    </div>
+
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h3 style="color: #2c3e50; margin-bottom: 20px;">💻 Programming Languages</h3>
+                            <div class="skills-grid">
+                                <div class="skill-item">
+                                    <div class="skill-name">JavaScript</div>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-name">Python</div>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-name">PowerShell</div>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-name">SQL</div>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-name">C#</div>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-name">Java</div>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3 style="color: #2c3e50; margin-bottom: 20px;">🛠️ Technologies & Tools</h3>
+                            <div class="tech-grid">
+                                <div class="tech-item">
+                                    <div class="tech-icon">🌐</div>
+                                    <div class="tech-details">
+                                        <h4>Web Development</h4>
+                                        <p>React, Node.js, Express, HTML5, CSS3</p>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">🗄️</div>
+                                    <div class="tech-details">
+                                        <h4>Databases</h4>
+                                        <p>SQL Server, MySQL, PostgreSQL,</p>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">☁️</div>
+                                    <div class="tech-details">
+                                        <h4>Cloud & DevOps</h4>
+                                        <p>Azure, AWS,</p>
+                                    </div>
+                                </div>
+                                <div class="tech-item">
+                                    <div class="tech-icon">🤖</div>
+                                    <div class="tech-details">
+                                        <h4>Data & AI</h4>
+                                        <p>Machine Learning, Data Analysis, APIs</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h3 style="color: #2c3e50; margin-bottom: 20px;">📚 Currently Learning</h3>
+                            <div class="tips-grid">
+                                <div class="tip-card">
+                                    <h3>🧠 Advanced Algorithms</h3>
+                                    <p>Exploring complex algorithmic patterns, optimization techniques, and computational complexity as part of my master's coursework.</p>
+                                </div>
+                                <div class="tip-card">
+                                    <h3>🔒 Cybersecurity</h3>
+                                    <p>Studying security principles, threat analysis, and secure coding practices to build more robust applications.</p>
+                                </div>
+                                <div class="tip-card">
+                                    <h3>📊 Big Data Technologies</h3>
+                                    <p>Learning distributed computing, data processing frameworks, and scalable system design principles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects Section -->
+                <section id="projects" class="section">
+                    <h2>My Projects</h2>
+                    <p style="margin-bottom: 30px; color: #666;">Here are some of the projects I've been working on:</p>
+                    
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <h3>📝 Project 1</h3>
+                            <p><strong>Log Device handling:</strong> HTML, Python, Flask, SQLite3, CSS</p>
+                            <p>Description of your first project. What problem does it solve? What technologies did you use? Any interesting challenges you overcame?</p>
+                            <div style="margin-top: 15px;">
+                                <a href="#" style="color: #3498db; text-decoration: none;">🔗 Live Demo</a> | 
+                                <a href="#" style="color: #3498db; text-decoration: none;">📂 GitHub</a>
+                            </div>
+                        </div>
+
+                        <div class="tip-card">
+                            <h3>🛠️ Project 2</h3>
+                            <p><strong>Tech Stack:</strong> Python, Flask, PostgreSQL</p>
+                            <p>Another project description. Highlight the key features, your role, and what you learned from building this project.</p>
+                            <div style="margin-top: 15px;">
+                                <a href="#" style="color: #3498db; text-decoration: none;">🔗 Live Demo</a> | 
+                                <a href="#" style="color: #3498db; text-decoration: none;">📂 GitHub</a>
+                            </div>
+                        </div>
+
+                        <div class="tip-card">
+                            <h3>🚀 Project 3</h3>
+                            <p><strong>Tech Stack:</strong> Vue.js, Express, MySQL</p>
+                            <p>Third project showcase. Maybe this one demonstrates a different skill set or tackles a unique problem in your field.</p>
+                            <div style="margin-top: 15px;">
+                                <a href="#" style="color: #3498db; text-decoration: none;">🔗 Live Demo</a> | 
+                                <a href="#" style="color: #3498db; text-decoration: none;">📂 GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact" class="section">
+                    <h2>Get In Touch With Me</h2>
+                    <p style="margin-bottom: 30px; color: #666;">Have a question about a tip or want to collaborate? I'd love to hear from you!</p>
+                    
+                    <div class="contact-form">
+                        <form onsubmit="handleSubmit(event)">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Tell me more..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    <div class="social-links">
+                            <a href="mailto:egy.masry87@gmail.com" title="Email">
+                                <i class="fas fa-envelope fa-2x"></i>
+                            </a>
+                            <a href="https://github.com/melmasry87" target="_blank" title="GitHub">
+                                <i class="fab fa-github fa-2x"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/mohamed-el-masry-352284123/" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin fa-2x"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@Egy-Tech.Official" target="_blank" title="YouTube">
+                                <i class="fab fa-youtube fa-2x"></i>
+                            </a>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+        }
+
+        function filterTips(category) {
+            const tipCards = document.querySelectorAll('.tip-card[data-category]');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            // Update active filter button
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide tip cards
+            tipCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thanks for your message! I\'ll get back to you soon.');
+            event.target.reset();
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click effect to tip cards
+            document.querySelectorAll('.tip-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
